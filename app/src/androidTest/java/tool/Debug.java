@@ -1,5 +1,6 @@
 package tool;
 
+import android.os.Environment;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -10,6 +11,11 @@ import androidx.test.uiautomator.UiObject2;
 
 import com.alibaba.fastjson.JSONObject;
 import org.junit.Test;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
 import java.util.Random;
 import pages.BasePage;
 import pages.ExceptionProtect;
@@ -66,7 +72,6 @@ public class Debug extends BasePage {
                 SystemClock.sleep(600);
                 return;
             }
-
         }
     }
 
@@ -93,7 +98,6 @@ public class Debug extends BasePage {
             findObject(By.text("6")).click();
             findObject(By.text("确\n定")).click();
 
-
         }
 
 
@@ -102,6 +106,38 @@ public class Debug extends BasePage {
 
     @Test
     public void go4(){
-        mDevice.swipe(362,919,366,403,25);
+        while(true){
+            List<UiObject2> objects = findObjects(By.clazz("android.widget.ScrollView"));
+            //System.out.println(objects.size()+"scrollview**");
+
+            UiObject2 object2 = objects.get(1).getChildren().get(0).getChildren().get(0).getChildren().get(0);
+
+            List<UiObject2> children = object2.getChildren();
+            //System.out.println(children.size()+"__****__");
+            for (UiObject2 obj:children) {
+                if(children.size()==6){
+                    System.out.print(obj.getText() + "____**");
+                }
+            }
+            System.out.println("\n");
+            mDevice.swipe(366,919,366,873,25);
+            //SystemClock.sleep(500);
+        }
     }
+
+    @Test
+    public void goTest() {
+        //findObject(By.text("undefined.item_2024-11.day_2024-11-01")).click();
+        int i = 1;
+        while(i<31) {
+            String j = ""+i;
+            if(i<10){
+                j="0"+i;
+            }
+            findObject(By.res("undefined.item_2024-11.day_2024-11-" + j)).click();
+                                          //undefined.item_2024-11.day_2024-11-10
+            i++;
+        }
+    }
+
 }
