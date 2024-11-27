@@ -15,8 +15,11 @@ import org.junit.Test;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
+
 import pages.BasePage;
 import pages.ExceptionProtect;
 
@@ -40,6 +43,7 @@ public class Debug extends BasePage {
         mDevice.click(171,686);
         SystemClock.sleep(1000);
         int i = 0;
+        HashSet hset = new HashSet();
         while(i<14000) {
             mDevice.swipe(362,919,366,503,25);
             SystemClock.sleep(300);
@@ -59,7 +63,8 @@ public class Debug extends BasePage {
 
             SystemClock.sleep(700);
             String orderNo = findObject(By.textStartsWith("票号:")).getText();
-            Log.i("i***:",""+i+"--"+orderNo);
+            hset.add(orderNo);
+            Log.i("i***:",""+i+"--"+orderNo+"--"+hset.size());
             i++;
 
             boolean b = mDevice.hasObject(By.text("没有更多了"));
